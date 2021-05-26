@@ -1,0 +1,8 @@
+# Dans le repertoire du repo
+python3 -m venv venv3.7 # créer l'environnement virtuel
+source venv3.7/bin/activate  # pour se connecter à l'environnement virtuel
+pip install -r requirement.txt  # pour installer les dépendances du logiciel en question
+deactivate  # pour se deconnecter de l'environnement
+
+# tu peux cacher ton environnement dans le .gitignore du projet
+ajouter le fichier venv3.7 dans le fichier .gitignore
