@@ -19,7 +19,7 @@ my_kms_key_id = "arn:aws:kms:us-east-1:180223572663:key/e31a0a29-832e-4145-8b8c-
 # print('respose', response)
 
 for bucket in response['Buckets']:
-  print('bucket', bucket['Name'])
+  print('bucket: ', bucket['Name'])
   try:
     enc = s3client.get_bucket_encryption(Bucket=bucket['Name'])
     rules = enc['ServerSideEncryptionConfiguration']['Rules']
