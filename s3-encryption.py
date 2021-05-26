@@ -14,18 +14,14 @@ s3resource = boto3.resource('s3')
 
 response = s3client.list_buckets()
 
-my_kms_key_id = "arn:aws:kms:us-east-1:180223572663:key/e31a0a29-832e-4145-8b8c-b19cbc984d2a"
-
-# print('respose', response)
-
 for bucket in response['Buckets']:
   print('bucket: ', bucket['Name'])
   try:
     enc = s3client.get_bucket_encryption(Bucket=bucket['Name'])
     rules = enc['ServerSideEncryptionConfiguration']['Rules']
-    print('Bucket: %s, Encryption: %s' % (bucket['Name'], rules))
+    print('Bucket Encrypted: %s' % (rules))
     bucketResource = s3resource.Bucket(bucket['Name'])
-    print('bucketResource', bucketResource)
+    # print('bucketResource', bucketResource)
     i = 0
     for objectSummary in bucketResource.objects.all():
         objectResource = s3resource.Object(bucket['Name'], objectSummary.key)
