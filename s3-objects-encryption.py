@@ -12,19 +12,28 @@ import sys
 s3client = boto3.client('s3')
 s3resource = boto3.resource('s3')
 
-# response = s3client.list_buckets()
+bucketList = []
 
-# Lister les buckets qui seront pris en compte lors de l'execution
-inputBuckets = [
-  'my-s3-data',
-  'martial-bucket',
-  'fastapistore',
-  'testbucketobject0001',
-  'my-empty-bucket-001',
-  'unexistingbucket'
-]
+if len(sys.argv[1:]) == 0:
+  print("There is no specified buckets to encrypt:\n\t - 'python bucket-encryption.py --all' To run on all your aws s3 buckets. \n\t - 'python bucket-encryption.py bucket1 bucket2 ...' To run on specifics buckets")
+elif len(sys.argv[1:]) == 1 and sys.argv[1] == '--bucketlist=all':
+  buckets = s3client.list_buckets()['Buckets']
+  bucketList = [bucket['Name'] for bucket in buckets]
+else:
+  try:
+    argument = sys.argv[1].split('=')[1]
+    restarg = sys.argv[2:]
+    listargs = [argument]+restarg
+    stringlistarg = ','.join(listargs)
+    stringlistarg = stringlistarg.replace('[', '').replace(']', '').replace(',,', ',')
+    print('stringlistarg', stringlistarg)
+    bucketList = stringlistarg.split(',')
+  except:
+    print('There is a problem with your argument')
 
-for bucket in inputBuckets:
+print('Bucket list: ', bucketList)
+
+for bucket in bucketList:
   print('bucket: ', bucket)
   try:
     enc = s3client.get_bucket_encryption(Bucket=bucket)
@@ -67,5 +76,3 @@ for bucket in inputBuckets:
     else:
     #   print("Bucket: %s, unexpected error: %s" % (bucket['Name'], e))
       continue
-
-
