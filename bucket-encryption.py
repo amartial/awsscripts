@@ -11,7 +11,7 @@ s3resource = boto3.resource('s3')
 bucketList = []
 
 if len(sys.argv[1:]) == 0:
-  print("There is no specified buckets to encrypt:\n\t - 'python bucket-encryption.py --all' To run on all your aws s3 buckets. \n\t - 'python bucket-encryption.py bucket1 bucket2 ...' To run on specifics buckets")
+  print("There is no specified buckets to encrypt:\n\t - 'python bucket-encryption.py --bucketlist=all' To run on all your aws s3 buckets. \n\t - 'python bucket-encryption.py --bucketlist=['bucket1', 'bucket2' ...]' To run on specifics buckets")
 elif len(sys.argv[1:]) == 1 and sys.argv[1] == '--bucketlist=all':
   buckets = s3client.list_buckets()['Buckets']
   bucketList = [bucket['Name'] for bucket in buckets]
