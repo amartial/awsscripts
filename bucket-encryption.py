@@ -9,7 +9,7 @@ import sys
 s3client = boto3.client('s3')
 s3resource = boto3.resource('s3')
 
-response = s3client.list_buckets()
+# response = s3client.list_buckets()
 
 inputBuckets = [
   'my-s3-data',
@@ -30,8 +30,8 @@ for bucket in inputBuckets:
   except ClientError as e:
     if e.response['Error']['Code'] == 'NoSuchBucket':
       print('Bucket not found: ', bucket)
-    if e.response['Error']['Code'] == 'ServerSideEncryptionConfigurationNotFoundError':
-      print('Bucket: %s, no server-side encryption' % (bucket))
+    elif e.response['Error']['Code'] == 'ServerSideEncryptionConfigurationNotFoundError':
+      print('Encrypting bucket: %s' % (bucket))
       try:
         response = s3client.get_bucket_encryption(Bucket=bucket)
         print('res', response)
