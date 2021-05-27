@@ -26,6 +26,7 @@ for bucket in response['Buckets']:
     for objectSummary in bucketResource.objects.all():
         objectResource = s3resource.Object(bucket['Name'], objectSummary.key)
         # print('encryption: ', objectResource.key, ' clef: ', objectResource.server_side_encryption, ' kms_key_id: ', objectResource.ssekms_key_i**************.*;:server_side_encryption is None:
+        if objectResource.server_side_encryption is None:
             print("Cryptage de l'objet: ", objectResource.key)
             copy_source = {
                 'Bucket': bucket['Name'],
@@ -39,11 +40,11 @@ for bucket in response['Buckets']:
                 ServerSideEncryption='aws:kms'
             )
 
-            print("Resultat du cryptage: ", resp)
+            # print("Resultat du cryptage: ", resp)
 
-        #     i += 1
-        # if i == 1:  # Contrainte pour crypter seulement un fichier par dossier sur aws s3
-        #     break
+            i += 1
+        if i == 1:  # Contrainte pour crypter seulement un fichier par dossier sur aws s3
+            break
         # my_file.
         # encrypt_file("s3://" + bucket['Name'] + "/" + my_file.key, my_kms_key_id)
 
