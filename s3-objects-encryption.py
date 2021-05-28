@@ -25,7 +25,7 @@ else:
     restarg = sys.argv[2:]
     listargs = [argument]+restarg
     stringlistarg = ','.join(listargs)
-    stringlistarg = stringlistarg.replace('[', '').replace(']', '').replace(',,', ',')
+    stringlistarg = stringlistarg.replace(u'[', '').replace(u']', '').replace(',,', ',').replace('\'', '').replace('\"', '').replace(' ', '')
     print('stringlistarg', stringlistarg)
     bucketList = stringlistarg.split(',')
   except:
