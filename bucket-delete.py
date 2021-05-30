@@ -76,6 +76,6 @@ if args.bucket_name:
 
     except ClientError as e:
         if e.response['Error']['Code'] == 'NoSuchBucket':
-            print('Bucket not found: ', bucket)
+            print('Bucket not found: ', args.bucket_name)
         else:
             print("Unexpected error: %s" % e)
