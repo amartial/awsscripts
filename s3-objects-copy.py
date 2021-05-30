@@ -50,5 +50,12 @@ if args.bucket_source and args.key_source and args.bucket_dest and args.key_dest
         'Bucket': args.bucket_source,
         'Key': args.key_source
     }
+    try:
+        s3resource.meta.client.copy(copy_source, args.bucket_dest, args.key_dest)
+        print('Succes copy file')
 
-    s3resource.meta.client.copy(copy_source, args.bucket_dest, args.key_dest)
+    except ClientError as e:
+        if e.response['Error']['Code'] == 'NoSuchBucket':
+            print('Bucket not found: ', bucket)
+        else:
+            print("Unexpected error: %s" % e)
