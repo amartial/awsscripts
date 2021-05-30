@@ -35,7 +35,7 @@ if args.bucket_name:
         to_delete_keys = [elt.key for elt in bucketResource.objects.all()]
         key_counter = 0
         to_delete = []
-        while key_counter <= 999 and key_counter < len(to_delete_keys):
+        while key_counter <= 100 and key_counter < len(to_delete_keys):
             
             to_delete.append(
                 {
@@ -46,7 +46,7 @@ if args.bucket_name:
                 }
             )
             # print('to_delete', to_delete)
-            if len(to_delete_keys) % 999 == 0:
+            if len(to_delete_keys) % 100 == 0:
                 delete = {
                     'Objects': to_delete,
                     'Quiet': False
@@ -57,10 +57,10 @@ if args.bucket_name:
                     # MFA='string',
                     # RequestPayer='requester',
                     # BypassGovernanceRetention=True|False,
-                    ExpectedBucketOwner='admin'
+                    # ExpectedBucketOwner='admin'
                 )
                 to_delete = []
-                # print('delete success ')
+                print('delete success ', response)
             key_counter += 1
         print(key_counter, len(to_delete_keys))
         if key_counter == len(to_delete_keys) and len(to_delete_keys) > 0:
@@ -69,9 +69,10 @@ if args.bucket_name:
                 'Quiet': False
             }
             response = bucketResource.delete_objects(Bucket=args.bucket_name, Delete=delete)
+            print('delete success ', response)
         print('Deleting bucket')
         deleteb = s3client.delete_bucket(Bucket=args.bucket_name)
-            # print('delete response2 ', response)
+        print("Bucket deleted", deleteb)
 
     except ClientError as e:
         if e.response['Error']['Code'] == 'NoSuchBucket':
