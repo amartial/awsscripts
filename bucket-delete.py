@@ -70,7 +70,7 @@ if args.bucket_name:
             }
             response = bucketResource.delete_objects(Bucket=args.bucket_name, Delete=delete)
             print('delete success ', response)
-        print('Deleting bucket')
+        print('Deleting bucket ', args.bucket_name)
         deleteb = s3client.delete_bucket(Bucket=args.bucket_name)
         print("Bucket deleted", deleteb)
 
