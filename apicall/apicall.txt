@@ -1,0 +1,5 @@
+curl -XPOST $IBUS_URL/binaries/1.2/file -H "Authorization: Bearer $TOKEN" -F "file=file1" -F tlpColor=AMBER -F classification=UNDEFINED -F contact=FLARE -F source=GREYMATTER
+
+curl --location --request GET  \
+ https://centralrepo.usw2.prod.services.fireeye.com/binaries/1.2/file/22e96844507d9c90a0925d7d2eaaf8237f31a879dcf7726dec499f6ac8238d93/info%27 \
+ --header 'Authorization: Bearer ${TOKEN}' 
