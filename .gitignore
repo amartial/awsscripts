@@ -2,3 +2,4 @@ pyvenv.cfg
 venv3
 .vscode
 .DS_Store
+embercode/__pycache__
